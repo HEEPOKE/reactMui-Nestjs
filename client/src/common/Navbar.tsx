@@ -55,17 +55,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavbarCommon() {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
   const [login, setLogin] = useState<boolean>(false);
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -76,10 +70,8 @@ export default function NavbarCommon() {
   useEffect(() => {
     if (!getAccessToken) {
       setLogin(false);
-      console.log("false");
     } else {
       setLogin(true);
-      console.log("true");
     }
   }, []);
 
@@ -138,15 +130,6 @@ export default function NavbarCommon() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography
             variant="h6"
             noWrap

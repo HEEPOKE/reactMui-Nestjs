@@ -17,6 +17,11 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import {
+  Link as RouterLink,
+  LinkProps as RouterLinkProps,
+} from "react-router-dom";
+import { LinkProps } from "@mui/material/Link";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -178,6 +183,36 @@ export default function NavbarCommon() {
           >
             MUI
           </Typography>
+          <MenuItem component={RouterLink} to="/">
+            <Typography
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" } }}
+              textAlign="center"
+            >
+              HOME
+            </Typography>
+          </MenuItem>
+          <MenuItem component={RouterLink} to="/product">
+            <Typography
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" } }}
+              textAlign="center"
+            >
+             PRODUCT
+            </Typography>
+          </MenuItem>
+          <MenuItem component={RouterLink} to="/about">
+            <Typography
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" } }}
+              textAlign="center"
+            >
+              ABOUT
+            </Typography>
+          </MenuItem>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

@@ -15,6 +15,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Link as RouterLink } from "react-router-dom";
+import RightMenu from "../components/navbar/RightMenu";
+import AuthMenu from "../components/navbar/AuthMenu";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -220,55 +222,7 @@ export default function NavbarCommon() {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          {login ? (
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <MenuItem component={RouterLink} to="/">
-                <Typography
-                  noWrap
-                  component="div"
-                  sx={{ display: { xs: "none", sm: "block" } }}
-                  textAlign="center"
-                >
-                  Logout
-                </Typography>
-              </MenuItem>
-            </Box>
-          ) : (
-            <>
-              <MenuItem component={RouterLink} to="/">
-                <Typography
-                  noWrap
-                  component="div"
-                  sx={{ display: { xs: "none", sm: "block" } }}
-                  textAlign="center"
-                >
-                  Login
-                </Typography>
-              </MenuItem>
-              <MenuItem component={RouterLink} to="/">
-                <Typography
-                  noWrap
-                  component="div"
-                  sx={{ display: { xs: "none", sm: "block" } }}
-                  textAlign="center"
-                >
-                  Register
-                </Typography>
-              </MenuItem>
-            </>
-          )}
-
+          {login ? <RightMenu /> : <AuthMenu />}
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"

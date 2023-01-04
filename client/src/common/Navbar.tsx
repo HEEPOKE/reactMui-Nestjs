@@ -105,7 +105,7 @@ export default function NavbarCommon() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <ChangeMode />
+      {/* <ChangeMode /> */}
       {login ? (
         <>
           <MenuItem component={RouterLink} to="/profile">

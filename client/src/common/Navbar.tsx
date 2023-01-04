@@ -8,12 +8,12 @@ import {
   Typography,
   InputBase,
   MenuItem,
+  Menu,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Link as RouterLink } from "react-router-dom";
-import RightMenu from "../layouts/Navbar/RightMenu";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -55,12 +55,84 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavbarCommon() {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
+  const [login, setLogin] = useState<boolean>(false);
+
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const getAccessToken = sessionStorage.getItem("access_token") ?? false;
+
+  useEffect(() => {
+    if (!getAccessToken) {
+      setLogin(false);
+      console.log("false");
+    } else {
+      setLogin(true);
+      console.log("true");
+    }
+  }, []);
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const mobileMenuId = "primary-search-account-menu-mobile";
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      id="primary-search-account-menu-mobile"
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      {login ? (
+        <>
+          <MenuItem component={RouterLink} to="/profile">
+            <Typography noWrap component="div" textAlign="center">
+              Profile
+            </Typography>
+          </MenuItem>
+          <MenuItem>
+            <Typography noWrap component="div" textAlign="center">
+              Logout
+            </Typography>
+          </MenuItem>
+        </>
+      ) : (
+        <>
+          <MenuItem component={RouterLink} to="/auth/login">
+            <Typography noWrap component="div" textAlign="center">
+              Login
+            </Typography>
+          </MenuItem>
+          <MenuItem component={RouterLink} to="/auth/register">
+            <Typography noWrap component="div" textAlign="center">
+              Register
+            </Typography>
+          </MenuItem>
+        </>
+      )}
+    </Menu>
+  );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -127,7 +199,7 @@ export default function NavbarCommon() {
             <IconButton
               size="large"
               aria-label="show more"
-              aria-controls="primary-search-account-menu-mobile"
+              aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
               color="inherit"
@@ -137,7 +209,7 @@ export default function NavbarCommon() {
           </Box>
         </Toolbar>
       </AppBar>
-      <RightMenu />
+      {renderMobileMenu}
     </Box>
   );
 }

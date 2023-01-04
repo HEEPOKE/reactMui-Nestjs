@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import {
   AppBar,
@@ -17,11 +17,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import {
-  Link as RouterLink,
-  LinkProps as RouterLinkProps,
-} from "react-router-dom";
-import { LinkProps } from "@mui/material/Link";
+import { Link as RouterLink } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -67,6 +63,7 @@ export default function NavbarCommon() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
+  const [login, setLogin] = useState<boolean>(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -162,6 +159,18 @@ export default function NavbarCommon() {
     </Menu>
   );
 
+  const getAccessToken = sessionStorage.getItem("access_token") ?? false;
+  
+  useEffect(() => {
+    if (!getAccessToken) {
+      setLogin(false);
+      console.log("false");
+    } else {
+      setLogin(true);
+      console.log("true");
+    }
+  }, []);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -200,7 +209,7 @@ export default function NavbarCommon() {
               sx={{ display: { xs: "none", sm: "block" } }}
               textAlign="center"
             >
-             PRODUCT
+              PRODUCT
             </Typography>
           </MenuItem>
           <MenuItem component={RouterLink} to="/about">

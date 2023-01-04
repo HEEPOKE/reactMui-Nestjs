@@ -10,7 +10,6 @@ import {
   MenuItem,
   Menu,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Link as RouterLink } from "react-router-dom";

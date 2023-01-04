@@ -8,7 +8,6 @@ export default function AuthMenu() {
         <Typography
           noWrap
           component="div"
-          sx={{ display: { xs: "none", sm: "block" } }}
           textAlign="center"
         >
           Login
@@ -18,7 +17,6 @@ export default function AuthMenu() {
         <Typography
           noWrap
           component="div"
-          sx={{ display: { xs: "none", sm: "block" } }}
           textAlign="center"
         >
           Register

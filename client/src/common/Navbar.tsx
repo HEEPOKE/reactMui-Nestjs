@@ -12,11 +12,9 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Link as RouterLink } from "react-router-dom";
-import RightMenu from "../components/navbar/RightMenu";
-import AuthMenu from "../components/navbar/AuthMenu";
+import ChangeMode from "../components/navbar/ChangeMode";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,7 +46,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -75,80 +72,6 @@ export default function NavbarCommon() {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Logout</p>
-      </MenuItem>
-    </Menu>
-  );
-
   const getAccessToken = sessionStorage.getItem("access_token") ?? false;
 
   useEffect(() => {
@@ -160,6 +83,58 @@ export default function NavbarCommon() {
       console.log("true");
     }
   }, []);
+
+  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const mobileMenuId = "primary-search-account-menu-mobile";
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <ChangeMode />
+      {login ? (
+        <>
+          <MenuItem component={RouterLink} to="/profile">
+            <Typography noWrap component="div" textAlign="center">
+              Profile
+            </Typography>
+          </MenuItem>
+          <MenuItem component={RouterLink} to="/auth/login">
+            <Typography noWrap component="div" textAlign="center">
+              Logout
+            </Typography>
+          </MenuItem>
+        </>
+      ) : (
+        <>
+          <MenuItem component={RouterLink} to="/auth/login">
+            <Typography noWrap component="div" textAlign="center">
+              Login
+            </Typography>
+          </MenuItem>
+          <MenuItem component={RouterLink} to="/auth/register">
+            <Typography noWrap component="div" textAlign="center">
+              Register
+            </Typography>
+          </MenuItem>
+        </>
+      )}
+    </Menu>
+  );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -222,8 +197,7 @@ export default function NavbarCommon() {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          {login ? <RightMenu /> : <AuthMenu />}
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "flex" } }}>
             <IconButton
               size="large"
               aria-label="show more"
@@ -238,7 +212,6 @@ export default function NavbarCommon() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
     </Box>
   );
 }

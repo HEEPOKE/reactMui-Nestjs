@@ -1,7 +1,18 @@
+import { Box, Typography } from "@mui/material";
+
 export default function HeaderProduct() {
   return (
-    <div className="container mt-3">
-      <h2 className="text-center text-dark">Product</h2>
-    </div>
+    <Box
+      sx={{
+        marginTop: 3,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Typography component="h1" variant="h3">
+        Product List
+      </Typography>
+    </Box>
   );
 }

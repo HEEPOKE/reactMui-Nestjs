@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import mainTs from "../../assets/ts/main";
 
 export default function LoginPage() {
   return (
@@ -28,7 +29,7 @@ export default function LoginPage() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Login
+          LOGIN
         </Typography>
         <Box
           component="form"
@@ -67,6 +68,16 @@ export default function LoginPage() {
             sx={{ mt: 3, mb: 2 }}
           >
             Sign In
+          </Button>
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            sx={{ mb: 2 }}
+            color="error"
+            onClick={mainTs.backPage}
+          >
+            Back
           </Button>
           <Grid container>
             <Grid item xs>

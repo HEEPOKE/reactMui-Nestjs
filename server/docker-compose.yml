@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: express
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
